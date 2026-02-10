@@ -1,0 +1,1733 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💝 ¿Quieres ser mi San Valentín?</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 50%, #ffffff 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hearts-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .heart-float {
+            position: absolute;
+            font-size: 25px;
+            animation: float 12s infinite;
+            opacity: 0.4;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(100vh) rotate(0deg);
+                opacity: 0;
+            }
+            50% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 30px;
+            max-width: 450px;
+            width: 90%;
+            box-shadow: 0 25px 70px rgba(0, 0, 0, 0.35);
+            text-align: center;
+            animation: slideIn 0.7s ease-out;
+            min-height: 500px;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px) scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        @keyframes fadeOut {
+            from {
+                opacity: 1;
+                transform: scale(1);
+            }
+            to {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .emoji-header {
+            font-size: 80px;
+            margin-bottom: 20px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        h1 {
+            color: #667eea;
+            font-size: 28px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        .message {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+
+        .date-banner {
+            background: linear-gradient(135deg, #ffffff 0%, #ffffff 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            font-weight: 600;
+            font-size: 18px;
+            box-shadow: 0 5px 15px rgba(245, 87, 108, 0.3);
+        }
+
+        .buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        button {
+            padding: 18px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .btn-yes {
+            background: linear-gradient(135deg, #d267ed 0%, #b194ce 100%);
+            color: white;
+        }
+
+        .btn-yes:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-no {
+            background: linear-gradient(135deg, #f3b1fa 0%, #fa7a8b 100%);
+            color: white;
+            position: relative;
+        }
+
+        .btn-no:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(245, 87, 108, 0.4);
+        }
+
+        .response-container {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .success-emoji {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+
+        .response-message {
+            font-size: 24px;
+            color: #667eea;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .response-text {
+            color: #555;
+            font-size: 16px;
+            line-height: 1.6;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #ff6b9d;
+            animation: confetti-fall 3.5s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            to {
+                transform: translateY(100vh) rotate(720deg);
+                opacity: 0;
+            }
+        }
+
+        .shake {
+            animation: shake 0.6s;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            10%, 30%, 50%, 70%, 90% { transform: translateX(-8px); }
+            20%, 40%, 60%, 80% { transform: translateX(8px); }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 25px 20px;
+            }
+            
+            h1 {
+                font-size: 26px;
+            }
+            
+            .message {
+                font-size: 16px;
+            }
+            
+            button {
+                font-size: 18px;
+                padding: 16px 35px;
+            }
+        }
+
+        /* Modo Amor Card Styles */
+        .modo-amor-card {
+            background: linear-gradient(to bottom, #f5f5f0 0%, #e8e8e0 100%);
+            padding: 50px 30px 40px;
+            border-radius: 25px;
+            position: relative;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .curved-text {
+            font-size: 28px;
+            font-weight: 400;
+            color: #e85d75;
+            text-align: center;
+            margin-bottom: 15px;
+            letter-spacing: 2px;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+        }
+
+        .heart-icon {
+            font-size: 50px;
+            text-align: center;
+            margin-bottom: 35px;
+            animation: heartbeat 1.5s ease-in-out infinite;
+        }
+
+        @keyframes heartbeat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        .modo-amor-box {
+            margin: 0 auto 35px;
+            max-width: 300px;
+        }
+
+        .modo-text {
+            background: #e85d75;
+            color: white;
+            font-size: 52px;
+            font-weight: 900;
+            padding: 15px 20px;
+            text-align: center;
+            letter-spacing: 8px;
+            transform: rotate(-2deg);
+            margin-bottom: -5px;
+            box-shadow: 0 5px 15px rgba(232, 93, 117, 0.3);
+        }
+
+        .amor-text {
+            background: #f5c6d6;
+            color: #e85d75;
+            font-size: 52px;
+            font-weight: 900;
+            padding: 15px 20px;
+            text-align: center;
+            letter-spacing: 8px;
+            transform: rotate(-1deg);
+            box-shadow: 0 5px 15px rgba(232, 93, 117, 0.2);
+        }
+
+        .toggle-switch {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .toggle-circle {
+            width: 30px;
+            height: 30px;
+            background: #e85d75;
+            border-radius: 50%;
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            transform: translateY(-50%);
+            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            box-shadow: 0 2px 8px rgba(232, 93, 117, 0.4);
+        }
+
+        .toggle-background.active .toggle-circle {
+            left: calc(100% - 35px);
+        }
+
+        .toggle-background {
+            display: inline-block;
+            width: 90px;
+            height: 45px;
+            background: white;
+            border: 4px solid #e85d75;
+            border-radius: 50px;
+            position: relative;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .toggle-background:hover {
+            transform: scale(1.05);
+            border-color: #d64d65;
+        }
+
+        .activado-badge {
+            background: #e85d75;
+            color: white;
+            font-size: 18px;
+            font-weight: 800;
+            padding: 12px 30px;
+            display: inline-block;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+        }
+
+        .website-text {
+            color: #e85d75;
+            font-size: 14px;
+            text-align: center;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+
+        /* Question Card Styles */
+        .question-card {
+            background: linear-gradient(135deg, #ffc0e0 0%, #ffb3d9 50%, #ffa6d5 100%);
+            padding: 60px 20px;
+            border-radius: 25px;
+            position: relative;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 15px 50px rgba(255, 105, 180, 0.3);
+        }
+
+        .heart-decoration {
+            position: absolute;
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            animation: floatHeart 3s ease-in-out infinite;
+        }
+
+        /* Corazones grandes con textura de rayado */
+        .heart-decoration::before,
+        .heart-decoration::after {
+            content: '';
+            position: absolute;
+            background: inherit;
+        }
+
+        /* Corazón superior izquierdo */
+        .heart-top-left {
+            width: 80px;
+            height: 80px;
+            top: -10px;
+            left: -10px;
+            background: repeating-linear-gradient(
+                45deg,
+                #ff1493,
+                #ff1493 2px,
+                #ff69b4 2px,
+                #ff69b4 4px
+            );
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            transform: rotate(-15deg);
+        }
+
+        /* Corazón superior derecho */
+        .heart-top-right {
+            width: 70px;
+            height: 70px;
+            top: 10px;
+            right: 10px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #ff69b4,
+                #ff69b4 2px,
+                #ffb3d9 2px,
+                #ffb3d9 4px
+            );
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            transform: rotate(20deg);
+            animation-delay: 0.5s;
+        }
+
+        /* Corazón inferior izquierdo */
+        .heart-bottom-left {
+            width: 60px;
+            height: 60px;
+            bottom: 40px;
+            left: 15px;
+            background: repeating-linear-gradient(
+                45deg,
+                #ffb3d9,
+                #ffb3d9 2px,
+                #ffc0e0 2px,
+                #ffc0e0 4px
+            );
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            transform: rotate(-10deg);
+            animation-delay: 1s;
+        }
+
+        /* Corazón inferior derecho */
+        .heart-bottom-right {
+            width: 75px;
+            height: 75px;
+            bottom: 20px;
+            right: 20px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #ff1493,
+                #ff1493 2px,
+                #ff69b4 2px,
+                #ff69b4 4px
+            );
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            transform: rotate(15deg);
+            animation-delay: 0.3s;
+        }
+
+        /* Corazones pequeños */
+        .heart-small-1 {
+            width: 45px;
+            height: 45px;
+            top: 50%;
+            left: 10px;
+            background: repeating-linear-gradient(
+                45deg,
+                #ffb3d9,
+                #ffb3d9 1px,
+                #ffc0e0 1px,
+                #ffc0e0 3px
+            );
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            animation-delay: 1.5s;
+        }
+
+        .heart-small-2 {
+            width: 50px;
+            height: 50px;
+            top: 35%;
+            right: 15px;
+            background: repeating-linear-gradient(
+                -45deg,
+                #ff69b4,
+                #ff69b4 1px,
+                #ffb3d9 1px,
+                #ffb3d9 3px
+            );
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            animation-delay: 0.8s;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-15px) rotate(5deg);
+            }
+        }
+
+        /* Corazón central */
+        .heart-container {
+            position: relative;
+            z-index: 2;
+        }
+
+        .heart-shape {
+            width: 280px;
+            height: 250px;
+            background: white;
+            position: relative;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(255, 105, 180, 0.3);
+            padding: 40px 30px;
+        }
+
+        .question-text {
+            text-align: center;
+            color: #ff1493;
+            font-family: 'Comic Sans MS', cursive, sans-serif;
+            line-height: 1.3;
+        }
+
+        .text-line1 {
+            display: block;
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .text-line2 {
+            display: block;
+            font-size: 36px;
+            font-weight: 700;
+            font-style: italic;
+        }
+
+        /* Celebration Background Styles */
+        #screen3 {
+            background: linear-gradient(135deg, #f5e6e8 0%, #e8d4d8 50%, #f0dde0 100%);
+            overflow: visible;
+        }
+
+        .celebration-background {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            border-radius: 30px;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .celebration-content {
+            position: relative;
+            z-index: 2;
+            background: transparent;
+            padding: 30px;
+            border-radius: 20px;
+        }
+
+        .celebration-content h1 {
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.8);
+        }
+
+        .celebration-content .message {
+            text-shadow: 1px 1px 3px rgba(255, 255, 255, 0.8);
+        }
+        .celebration img {
+  width: 80px;  /* ajusta el tamaño que necesites */
+  height: 80px;
+  margin: 0 5px; /* espacio entre las imágenes */
+}
+
+        /* Corazones brillantes con textura glitter */
+        .glitter-heart {
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            background: radial-gradient(circle, #8b0000 0%, #6b0000 50%, #4b0000 100%);
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            animation: sparkle 2s ease-in-out infinite;
+            box-shadow: 
+                0 0 10px rgba(139, 0, 0, 0.5),
+                inset 0 0 5px rgba(255, 255, 255, 0.3);
+        }
+
+        .glitter-heart::before {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: repeating-linear-gradient(
+                45deg,
+                transparent,
+                transparent 2px,
+                rgba(255, 255, 255, 0.1) 2px,
+                rgba(255, 255, 255, 0.1) 4px
+            );
+        }
+
+        @keyframes sparkle {
+            0%, 100% {
+                opacity: 0.8;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 1;
+                transform: scale(1.1);
+            }
+        }
+
+        /* Posiciones de los corazones */
+        .heart-pos-1 {
+            top: 10%;
+            left: 5%;
+            width: 35px;
+            height: 35px;
+            animation-delay: 0s;
+        }
+
+        .heart-pos-2 {
+            top: 15%;
+            left: 15%;
+            width: 25px;
+            height: 25px;
+            animation-delay: 0.3s;
+        }
+
+        .heart-pos-3 {
+            top: 8%;
+            left: 25%;
+            width: 45px;
+            height: 45px;
+            animation-delay: 0.6s;
+        }
+
+        .heart-pos-4 {
+            bottom: 25%;
+            right: 8%;
+            width: 30px;
+            height: 30px;
+            animation-delay: 0.9s;
+        }
+
+        .heart-pos-5 {
+            bottom: 30%;
+            right: 18%;
+            width: 38px;
+            height: 38px;
+            animation-delay: 1.2s;
+        }
+
+        .heart-pos-6 {
+            bottom: 35%;
+            right: 5%;
+            width: 50px;
+            height: 50px;
+            animation-delay: 1.5s;
+        }
+
+        .heart-pos-7 {
+            bottom: 15%;
+            left: 25%;
+            width: 35px;
+            height: 35px;
+            animation-delay: 0.4s;
+        }
+
+        .heart-pos-8 {
+            bottom: 20%;
+            left: 15%;
+            width: 28px;
+            height: 28px;
+            animation-delay: 0.8s;
+        }
+
+        /* Regalo superior */
+        .gift {
+            position: absolute;
+        }
+
+        .gift-top {
+            top: 5%;
+            right: 15%;
+            width: 100px;
+            height: 80px;
+            transform: rotate(15deg);
+        }
+
+        .gift-box {
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f5f5f0 0%, #e0e0d8 100%);
+            border-radius: 5px;
+            position: relative;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .gift-pattern {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                repeating-linear-gradient(
+                    90deg,
+                    transparent,
+                    transparent 15px,
+                    #ff6b6b 15px,
+                    #ff6b6b 18px
+                ),
+                repeating-linear-gradient(
+                    0deg,
+                    transparent,
+                    transparent 10px,
+                    rgba(255, 107, 107, 0.3) 10px,
+                    rgba(255, 107, 107, 0.3) 12px
+                );
+            border-radius: 5px;
+        }
+
+        .gift-ribbon-h {
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to bottom, #c41e3a 0%, #a01829 100%);
+            top: 50%;
+            transform: translateY(-50%);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .gift-ribbon-v {
+            position: absolute;
+            width: 20px;
+            height: 100%;
+            background: linear-gradient(to right, #c41e3a 0%, #a01829 100%);
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .gift-bow {
+            position: absolute;
+            width: 30px;
+            height: 15px;
+            background: #c41e3a;
+            top: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            border-radius: 50% 50% 0 0;
+            box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .gift-bow::before,
+        .gift-bow::after {
+            content: '';
+            position: absolute;
+            width: 25px;
+            height: 20px;
+            background: #c41e3a;
+            border-radius: 50%;
+            top: 5px;
+        }
+
+        .gift-bow::before {
+            left: -20px;
+        }
+
+        .gift-bow::after {
+            right: -20px;
+        }
+
+        /* Sobre y carta inferior */
+        .envelope-card {
+            position: absolute;
+            bottom: 10%;
+            right: 8%;
+            width: 120px;
+            height: 90px;
+            transform: rotate(-8deg);
+        }
+
+        .card-white {
+            position: absolute;
+            width: 80px;
+            height: 100px;
+            background: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+            top: -15px;
+            left: 10px;
+            border-radius: 3px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 2;
+        }
+
+        .card-heart {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background: #c41e3a;
+            clip-path: polygon(50% 0%, 100% 35%, 100% 100%, 50% 80%, 0% 100%, 0% 35%);
+            top: 20px;
+            left: 35px;
+            z-index: 3;
+        }
+
+        .envelope-red {
+            position: absolute;
+            width: 100%;
+            height: 70px;
+            background: linear-gradient(135deg, #c41e3a 0%, #a01829 100%);
+            bottom: 0;
+            z-index: 1;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.25);
+        }
+
+        .envelope-red::before {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 40px solid #c41e3a;
+            top: -40px;
+            left: 0;
+        }
+
+        /* Cintas decorativas */
+        .ribbon {
+            position: absolute;
+            height: 30px;
+            background: linear-gradient(to bottom, #ff8a80 0%, #ff6b6b 50%, #ff5252 100%);
+            box-shadow: 0 3px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .ribbon::before,
+        .ribbon::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 0;
+            border-style: solid;
+        }
+
+        .ribbon-1 {
+            top: 12%;
+            right: 5%;
+            width: 80px;
+            transform: rotate(25deg);
+        }
+
+        .ribbon-1::after {
+            border-width: 15px 0 15px 20px;
+            border-color: transparent transparent transparent #ff5252;
+            right: -20px;
+            top: 0;
+        }
+
+        .ribbon-2 {
+            bottom: 8%;
+            left: 5%;
+            width: 60px;
+            transform: rotate(-15deg);
+        }
+
+        .ribbon-2::before {
+            border-width: 15px 20px 15px 0;
+            border-color: transparent #ff5252 transparent transparent;
+            left: -20px;
+            top: 0;
+        }
+
+        .ribbon-3 {
+            top: 50%;
+            left: -10px;
+            width: 70px;
+            transform: rotate(45deg);
+        }
+
+        .ribbon-3::after {
+            border-width: 15px 0 15px 20px;
+            border-color: transparent transparent transparent #ff5252;
+            right: -20px;
+            top: 0;
+        }
+
+        /* Tic Tac Toe Decorative Graphic */
+        .tic-tac-toe-graphic {
+            margin: 20px 0;
+        }
+
+        .ttt-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 60px);
+            grid-gap: 8px;
+            justify-content: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffd0e8 100%);
+            border-radius: 15px;
+            display: inline-grid;
+        }
+
+        .ttt-item {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            background: white;
+            border-radius: 8px;
+        }
+
+        .ttt-o::before {
+            content: 'O';
+            color: #ff69b4;
+            font-weight: bold;
+        }
+
+        .ttt-x::before {
+            content: 'X';
+            color: #ffb3d9;
+            font-weight: bold;
+        }
+
+        .ttt-heart::before {
+            content: '❤️';
+        }
+
+        /* Tic Tac Toe Game Board */
+        .game-status {
+            font-size: 20px;
+            font-weight: 700;
+            color: #ff1493;
+            margin-bottom: 20px;
+            padding: 12px;
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffd0e8 100%);
+            border-radius: 15px;
+        }
+
+        .tic-tac-toe-board {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-gap: 10px;
+            max-width: 320px;
+            margin: 0 auto;
+            padding: 15px;
+            background: linear-gradient(135deg, #ffe0f0 0%, #ffd0e8 100%);
+            border-radius: 20px;
+        }
+
+        .cell {
+            aspect-ratio: 1;
+            background: white;
+            border: 3px solid #ff69b4;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 48px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(255, 105, 180, 0.3);
+        }
+
+        .cell:hover:not(.taken) {
+            background: #fff0f8;
+            transform: scale(1.05);
+            border-color: #ff1493;
+        }
+
+        .cell.taken {
+            cursor: not-allowed;
+        }
+
+        .cell.winning {
+            background: linear-gradient(135deg, #ff69b4 0%, #ff1493 100%);
+            animation: winPulse 0.6s ease-in-out;
+        }
+
+        @keyframes winPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+        }
+
+        /* Coupons Styles */
+        .coupons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .coupon {
+            display: flex;
+            border: 3px dashed #333;
+            border-radius: 15px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .coupon:hover {
+            transform: scale(1.02);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .coupon-pink {
+            background: linear-gradient(135deg, #ffb3d9 0%, #ff91c7 100%);
+        }
+
+        .coupon-white {
+            background: linear-gradient(135deg, #fff0f8 0%, #ffe8f3 100%);
+        }
+
+        .coupon-beige {
+            background: linear-gradient(135deg, #f5f5f0 0%, #ede8e0 100%);
+        }
+
+        .coupon-left {
+            flex: 1;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .heart-icon-coupon {
+            font-size: 32px;
+            margin-bottom: 5px;
+        }
+
+        .hearts-icon-coupon {
+            font-size: 28px;
+            margin-bottom: 5px;
+            letter-spacing: 5px;
+        }
+
+        .coupon-title {
+            font-size: 12px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .coupon-main-text {
+            font-size: 22px;
+            font-weight: 900;
+            line-height: 1.2;
+            margin-bottom: 5px;
+        }
+
+        .coupon-subtitle {
+            font-size: 14px;
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .coupon-small-text {
+            font-size: 9px;
+            line-height: 1.3;
+            margin-top: 10px;
+        }
+
+        .coupon-right {
+            width: 80px;
+            background: rgba(0, 0, 0, 0.05);
+            border-left: 3px dashed #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 5px;
+            position: relative;
+        }
+
+        .coupon-vertical-text {
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            flex: 1;
+            display: flex;
+            align-items: center;
+        }
+
+        .scissors {
+            font-size: 24px;
+            margin-top: 10px;
+            animation: snip 2s ease-in-out infinite;
+        }
+
+        @keyframes snip {
+            0%, 100% { transform: rotate(0deg); }
+            50% { transform: rotate(45deg); }
+        }
+
+        .screen {
+            display: none;
+        }
+
+        .screen.active {
+            display: block;
+            animation: fadeIn 0.6s ease-in;
+        }
+
+        .celebration {
+            font-size: 80px;
+            margin-bottom: 25px;
+            animation: celebrate 1s ease-in-out infinite;
+        }
+
+        @keyframes celebrate {
+            0%, 100% {
+                transform: scale(1) rotate(0deg);
+            }
+            25% {
+                transform: scale(1.2) rotate(-10deg);
+            }
+            75% {
+                transform: scale(1.2) rotate(10deg);
+            }
+        }
+
+        .buttons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            margin-top: 20px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #ff6b9d 0%, #ee5a6f 100%);
+            color: white;
+            width: 100%;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 30px rgba(255, 107, 157, 0.5);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px);
+        }
+
+
+        #screen5 {
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+#screen5 .container {
+    padding-bottom: 30px;
+}
+
+.screen {
+    overflow-y: auto;
+    max-height: 100vh;
+}
+
+.screen .celebration-content {
+    padding-bottom: 30px;
+}
+.celebration-content {
+    max-height: 85vh; /* Ajusta según necesites */
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 20px;
+    padding-bottom: 30px;
+}
+
+/* Estilizar la barra de scroll */
+.celebration-content::-webkit-scrollbar {
+    width: 8px;
+}
+
+.celebration-content::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+.celebration-content::-webkit-scrollbar-thumb {
+    background: #ff1493;
+    border-radius: 10px;
+}
+
+.celebration-content::-webkit-scrollbar-thumb:hover {
+    background: #ff69b4;
+}
+
+/* Asegurar espaciado interno */
+.celebration-content h1 {
+    margin-top: 0;
+}
+
+.celebration-content .btn-primary {
+    margin-bottom: 0;
+}
+    </style>
+</head>
+<body>
+    <div class="hearts-background" id="heartsBackground"></div>
+
+    <!-- Pantalla 1: Portada "Modo Amor" -->
+    <div class="container screen active" id="screen1">
+        <div class="modo-amor-card">
+            <div class="curved-text">Llega febrero</div>
+            <div class="heart-icon"> <div class="celebration"> <img src="img/amor.png" alt="Celebración"></div></div>
+            
+            <div class="modo-amor-box">
+                <div class="modo-text">MODO</div>
+                <div class="amor-text">AMOR</div>
+            </div>
+            
+            <div class="toggle-switch">
+                <div class="toggle-background" id="toggleSwitch" onclick="activateToggle()">
+                    <div class="toggle-circle" id="toggleCircle"></div>
+                </div>
+            </div>
+            
+            <div class="activado-badge">Presiona el botòn</div>
+        </div>
+    </div>
+
+    <!-- Pantalla 2: Pregunta -->
+    <div class="container screen" id="screen2">
+        <div class="question-card">
+            <!-- Corazones decorativos -->
+            <div class="heart-decoration heart-top-left"></div>
+            <div class="heart-decoration heart-top-right"></div>
+            <div class="heart-decoration heart-bottom-left"></div>
+            <div class="heart-decoration heart-bottom-right"></div>
+            <div class="heart-decoration heart-small-1"></div>
+            <div class="heart-decoration heart-small-2"></div>
+            
+            <!-- Corazón central con texto -->
+            <div class="heart-container">
+                <div class="heart-shape">
+                    <div class="question-text">
+                        <span class="text-line1">Quierés ser mí</span>
+                        <span class="text-line2">San Valentín?</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="buttons-container">
+            <button class="btn-yes" onclick="handleYes()">
+                💕 ¡SÍ QUIERO! 💕
+            </button>
+            <button class="btn-no" id="btnNo" onclick="handleNo()">
+                😢 No, gracias
+            </button>
+        </div>
+    </div>
+
+    <!-- Pantalla 3: Respuesta Positiva -->
+    <div class="container screen" id="screen3">
+        <!-- Fondo decorativo -->
+        <div class="celebration-background">
+            <!-- Corazones brillantes -->
+            <div class="glitter-heart heart-pos-1"></div>
+            <div class="glitter-heart heart-pos-2"></div>
+            <div class="glitter-heart heart-pos-3"></div>
+            <div class="glitter-heart heart-pos-4"></div>
+            <div class="glitter-heart heart-pos-5"></div>
+            <div class="glitter-heart heart-pos-6"></div>
+            <div class="glitter-heart heart-pos-7"></div>
+            <div class="glitter-heart heart-pos-8"></div>
+            
+            <!-- Regalo superior -->
+            <div class="gift gift-top">
+                <div class="gift-box"></div>
+                <div class="gift-ribbon-h"></div>
+                <div class="gift-ribbon-v"></div>
+                <div class="gift-bow"></div>
+                <div class="gift-pattern"></div>
+            </div>
+            
+            <!-- Sobre y carta inferior -->
+            <div class="envelope-card">
+                <div class="card-white"></div>
+                <div class="envelope-red"></div>
+                <div class="card-heart"></div>
+            </div>
+            
+            <!-- Cintas decorativas -->
+            <div class="ribbon ribbon-1"></div>
+            <div class="ribbon ribbon-2"></div>
+            <div class="ribbon ribbon-3"></div>
+        </div>
+        
+        <!-- Contenido de celebración -->
+        <div class="celebration-content">
+            <div class="celebration">
+                <img src="img/te-quiero.png" alt="Celebración">
+                <img src="img/amor.png" alt="Celebración">
+                <img src="img/te-quiero.png" alt="Celebración">
+            </div>
+            <h1>¡SÍÍÍÍ! ¡Dijiste que SÍ!</h1>
+            <p class="message">
+                ¡Me has hecho la persona más feliz del mundo! 🥰<br><br>
+                Este 14 de febrero será inolvidable porque lo pasaré a tu lado. 
+                Prepárate para un día lleno de amor, sorpresas y momentos especiales. 💕✨<br><br>
+                ¡Gracias por hacerme tan feliz! 😍
+            </p>
+            <div class="celebration" style="font-size: 60px; margin-top: 20px;">
+                <div class="celebration">
+                <img src="img/panda.png" alt="Celebración">
+                <img src="img/amor.png" alt="Celebración">
+                <img src="img/panda.png" alt="Celebración">
+            </div>
+            </div>
+            <button class="btn-primary" onclick="goToScreen4()" style="margin-top: 30px; width: 100%;">
+               Participar en el juego del amor por un boleto❤️
+            </button>
+        </div>
+    </div>
+
+    <!-- Pantalla 4: Juego de Michi -->
+    <div class="container screen" id="screen4">
+        <div class="game-header">
+            <h1 style="color: #ff1493; margin-bottom: 10px;">❤️ Juego del Amor ❤️</h1>
+            <div class="tic-tac-toe-graphic">
+                
+            </div>
+        </div>
+        
+        <p style="margin: 20px 0; color: #666; font-size: 16px;">
+            ¡Gana el juego para desbloquear tu premio especial! 
+        </p>
+        
+        <div class="game-status" id="gameStatus">Tu turno: ❤️</div>
+        
+        <div class="tic-tac-toe-board" id="gameBoard">
+            <div class="cell" data-cell="0" onclick="makeMove(0)"></div>
+            <div class="cell" data-cell="1" onclick="makeMove(1)"></div>
+            <div class="cell" data-cell="2" onclick="makeMove(2)"></div>
+            <div class="cell" data-cell="3" onclick="makeMove(3)"></div>
+            <div class="cell" data-cell="4" onclick="makeMove(4)"></div>
+            <div class="cell" data-cell="5" onclick="makeMove(5)"></div>
+            <div class="cell" data-cell="6" onclick="makeMove(6)"></div>
+            <div class="cell" data-cell="7" onclick="makeMove(7)"></div>
+            <div class="cell" data-cell="8" onclick="makeMove(8)"></div>
+        </div>
+        
+        <button class="btn-primary" onclick="resetGame()" style="margin-top: 25px; width: 100%; font-size: 16px; padding: 14px;">
+             Reiniciar Juego
+        </button>
+    </div>
+
+    <!-- Pantalla 5: Cupones -->
+    <div class="container screen" id="screen5">
+        <div class="celebration"> <img src="img/amar.png" alt="Celebración"></div>
+        <h1 style="color: #ff1493; margin-bottom: 10px;">¡GANASTE!</h1>
+        <p class="message" style="margin-bottom: 30px;">
+            Elige tu cupón especial para el 14 de febrero 💕
+        </p>
+        
+        <div class="coupons-container">
+            <div class="coupon coupon-pink" onclick="selectCoupon('cena')">
+                <div class="coupon-left">
+                    <div class="heart-icon-coupon">♥</div>
+                    <div class="coupon-title">VALE POR:</div>
+                    <div class="coupon-main-text">UNA CENA<br>ROMÁNTICA</div>
+                    <div class="coupon-subtitle">(a la luz de las velas)</div>
+                    <div class="coupon-small-text">ATENCIÓN: Válido únicamente para la mejor novia del mundo.</div>
+                </div>
+                <div class="coupon-right">
+                    <div class="coupon-vertical-text">UNA CENA ROMÁNTICA</div>
+                    <div class="scissors">✂</div>
+                </div>
+            </div>
+            
+            <div class="coupon coupon-white" onclick="selectCoupon('escapada')">
+                <div class="coupon-left">
+                    <div class="hearts-icon-coupon">♥♥</div>
+                    <div class="coupon-title">VALE POR:</div>
+                    <div class="coupon-main-text">UNA ESCAPADA<br>ROMÁNTICA</div>
+                    <div class="coupon-subtitle">(al lugar que elijas)</div>
+                    <div class="coupon-small-text">ATENCIÓN: Válido únicamente para la mejor novia del mundo.</div>
+                </div>
+                <div class="coupon-right">
+                    <div class="coupon-vertical-text">UNA ESCAPADA ROMÁNTICA</div>
+                    <div class="scissors">✂</div>
+                </div>
+            </div>
+            
+            <div class="coupon coupon-beige" onclick="selectCoupon('peliculas')">
+                <div class="coupon-left">
+                    <div class="hearts-icon-coupon">♥♥</div>
+                    <div class="coupon-title">VALE POR:</div>
+                    <div class="coupon-main-text">UNA NOCHE DE<br>PELÍCULAS</div>
+                    <div class="coupon-subtitle">(a tu elección)</div>
+                    <div class="coupon-small-text">ATENCIÓN: Válido únicamente para la mejor novia del mundo.</div>
+                </div>
+                <div class="coupon-right">
+                    <div class="coupon-vertical-text">UNA NOCHE DE PELÍCULAS</div>
+                    <div class="scissors">✂</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pantalla 6: Confirmación del cupón -->
+    <div class="container screen" id="screen6">
+        <div class="celebration" style="font-size: 100px;"> <div class="celebration"> <img src="img/panda.png" alt="Celebración"></div></div>
+        <h1 style="color: #ff1493; font-size: 36px; margin: 20px 0;">¡LISTO!</h1>
+        <h2 style="color: #ff69b4; font-size: 28px; margin-bottom: 20px;">Ganaste</h2>
+        <p class="message" style="font-size: 20px; line-height: 1.8;">
+            <strong id="selectedCouponText"></strong><br><br>
+            ¡Te amo con todo mi corazón! 💕<br>
+            Este San Valentín será inolvidable juntos. 
+        </p>
+        <div class="celebration" style="font-size: 80px; margin-top: 30px;"></div>
+    </div>
+
+    <script>
+        // Crear corazones flotantes
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsBackground');
+            const hearts = ['💕', '💖', '💗', '💝', '💘', '❤️', '💞'];
+            
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const heart = document.createElement('div');
+                    heart.className = 'heart-float';
+                    heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                    heart.style.left = Math.random() * 100 + '%';
+                    heart.style.animationDelay = Math.random() * 6 + 's';
+                    heart.style.animationDuration = (Math.random() * 6 + 10) + 's';
+                    heart.style.fontSize = (Math.random() * 15 + 20) + 'px';
+                    container.appendChild(heart);
+                }, i * 400);
+            }
+        }
+
+        createFloatingHearts();
+
+        function activateToggle() {
+            const toggle = document.getElementById('toggleSwitch');
+            const circle = document.getElementById('toggleCircle');
+            
+            // Activar el toggle
+            toggle.classList.add('active');
+            
+            // Esperar a que termine la animación del toggle y luego cambiar de pantalla
+            setTimeout(() => {
+                goToScreen2();
+            }, 600);
+        }
+
+        function goToScreen2() {
+            document.getElementById('screen1').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('screen2').classList.add('active');
+            }, 300);
+        }
+
+        let noClickCount = 0;
+        const noMessages = [
+            '😢 ¿Estás segur@?',
+            '🥺 Piénsalo mejor...',
+            '💔 Dame una oportunidad',
+            '🙏 Por favooor...',
+            '😭 ¡No me hagas esto!',
+            '💕 ¡Di que sí, porfa!',
+            '🥹 Una última oportunidad...'
+        ];
+
+        function handleNo() {
+            const btn = document.getElementById('btnNo');
+            const screen = document.getElementById('screen2');
+            
+            screen.classList.add('shake');
+            setTimeout(() => screen.classList.remove('shake'), 600);
+            
+            if (noClickCount < noMessages.length) {
+                btn.textContent = noMessages[noClickCount];
+                noClickCount++;
+                
+                // Hacer el botón SÍ más grande y el NO más pequeño
+                const yesBtn = document.querySelector('.btn-yes');
+                const currentYesSize = parseFloat(window.getComputedStyle(yesBtn).fontSize);
+                const currentNoSize = parseFloat(window.getComputedStyle(btn).fontSize);
+                
+                yesBtn.style.fontSize = (currentYesSize + 2) + 'px';
+                yesBtn.style.padding = (18 + noClickCount * 4) + 'px ' + (40 + noClickCount * 5) + 'px';
+                
+                btn.style.fontSize = Math.max(14, currentNoSize - 1.5) + 'px';
+                btn.style.padding = Math.max(10, 18 - noClickCount * 2) + 'px ' + Math.max(25, 40 - noClickCount * 3) + 'px';
+            }
+            
+            // Mover el botón NO inmediatamente desde el primer clic
+            moveNoButton();
+        }
+
+        function moveNoButton() {
+            const btn = document.getElementById('btnNo');
+            const screen = document.getElementById('screen2');
+            const container = screen.getBoundingClientRect();
+            const btnRect = btn.getBoundingClientRect();
+            
+            // Calcular posición aleatoria dentro del contenedor
+            const maxX = container.width - btnRect.width - 40;
+            const maxY = container.height - btnRect.height - 40;
+            
+            const randomX = Math.max(20, Math.random() * maxX);
+            const randomY = Math.max(20, Math.random() * maxY);
+            
+            btn.style.position = 'absolute';
+            btn.style.left = randomX + 'px';
+            btn.style.top = randomY + 'px';
+            btn.style.zIndex = '10';
+        }
+
+        // Hacer que el botón NO se mueva también cuando pasan el mouse por encima
+        document.addEventListener('DOMContentLoaded', function() {
+            setTimeout(() => {
+                const btnNo = document.getElementById('btnNo');
+                if (btnNo) {
+                    btnNo.addEventListener('mouseenter', function() {
+                        if (noClickCount > 0) {
+                            moveNoButton();
+                        }
+                    });
+                }
+            }, 1000);
+        });
+
+        function handleYes() {
+            createConfetti();
+            document.getElementById('screen2').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('screen3').classList.add('active');
+                document.body.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #feca57 100%)';
+            }, 300);
+        }
+
+        function createConfetti() {
+            const colors = ['#ff6b9d', '#f5576c', '#f093fb', '#feca57', '#ff9ff3', '#ff6b9d'];
+            
+            for (let i = 0; i < 80; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.top = '-20px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDelay = Math.random() * 1 + 's';
+                    confetti.style.animationDuration = (Math.random() * 2 + 2.5) + 's';
+                    
+                    // Formas aleatorias
+                    if (Math.random() > 0.5) {
+                        confetti.style.borderRadius = '50%';
+                    }
+                    
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => confetti.remove(), 6000);
+                }, i * 40);
+            }
+        }
+
+        // Navigation functions
+        function goToScreen3() {
+            document.getElementById('screen2').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('screen3').classList.add('active');
+                document.body.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 50%, #feca57 100%)';
+            }, 300);
+        }
+
+        function goToScreen4() {
+            document.getElementById('screen3').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('screen4').classList.add('active');
+                document.body.style.background = 'linear-gradient(135deg, #ff6b9d 0%, #c06c84 50%, #f67280 100%)';
+            }, 300);
+        }
+
+        function goToScreen5() {
+            document.getElementById('screen4').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('screen5').classList.add('active');
+            }, 300);
+        }
+
+        function goToScreen6() {
+            document.getElementById('screen5').classList.remove('active');
+            setTimeout(() => {
+                document.getElementById('screen6').classList.add('active');
+            }, 300);
+        }
+
+        // Tic Tac Toe Game Logic
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'heart';
+        let gameActive = true;
+
+        const winningConditions = [
+            [0, 1, 2], [3, 4, 5], [6, 7, 8], // Rows
+            [0, 3, 6], [1, 4, 7], [2, 5, 8], // Columns
+            [0, 4, 8], [2, 4, 6] // Diagonals
+        ];
+
+        function makeMove(cellIndex) {
+            if (!gameActive || board[cellIndex] !== '') return;
+
+            const cells = document.querySelectorAll('.cell');
+            board[cellIndex] = currentPlayer;
+            
+            if (currentPlayer === 'heart') {
+                cells[cellIndex].textContent = '❤️';
+            } else {
+                cells[cellIndex].textContent = '✖️';
+            }
+            
+            cells[cellIndex].classList.add('taken');
+
+            if (checkWin()) {
+                const status = document.getElementById('gameStatus');
+                if (currentPlayer === 'heart') {
+                    status.textContent = '🎉 ¡GANASTE! 🎉';
+                    status.style.background = 'linear-gradient(135deg, #f093fb 0%, #f5576c 100%)';
+                    status.style.color = 'white';
+                    
+                    // Highlight winning cells
+                    highlightWinningCells();
+                    
+                    // Go to coupons screen after delay
+                    setTimeout(() => {
+                        goToScreen5();
+                        resetGame();
+                    }, 2000);
+                } else {
+                    status.textContent = '💔 Perdiste. ¡Intenta de nuevo!';
+                }
+                gameActive = false;
+                return;
+            }
+
+            if (checkDraw()) {
+                document.getElementById('gameStatus').textContent = '😅 ¡Empate! Intenta de nuevo';
+                gameActive = false;
+                return;
+            }
+
+            // Switch player
+            currentPlayer = currentPlayer === 'heart' ? 'x' : 'heart';
+            document.getElementById('gameStatus').textContent = 
+                currentPlayer === 'heart' ? 'Tu turno: ❤️' : 'Turno de: ✖️';
+
+            // Computer move
+            if (currentPlayer === 'x' && gameActive) {
+                setTimeout(computerMove, 500);
+            }
+        }
+
+        function computerMove() {
+            if (!gameActive) return;
+
+            // Simple AI: random available cell
+            const availableCells = board.map((cell, index) => cell === '' ? index : null).filter(val => val !== null);
+            
+            if (availableCells.length > 0) {
+                const randomIndex = availableCells[Math.floor(Math.random() * availableCells.length)];
+                makeMove(randomIndex);
+            }
+        }
+
+        function checkWin() {
+            return winningConditions.some(condition => {
+                return condition.every(index => {
+                    return board[index] === currentPlayer;
+                });
+            });
+        }
+
+        function highlightWinningCells() {
+            winningConditions.forEach(condition => {
+                if (condition.every(index => board[index] === currentPlayer)) {
+                    const cells = document.querySelectorAll('.cell');
+                    condition.forEach(index => {
+                        cells[index].classList.add('winning');
+                    });
+                }
+            });
+        }
+
+        function checkDraw() {
+            return board.every(cell => cell !== '');
+        }
+
+        function resetGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = 'heart';
+            gameActive = true;
+            
+            const cells = document.querySelectorAll('.cell');
+            cells.forEach(cell => {
+                cell.textContent = '';
+                cell.classList.remove('taken', 'winning');
+            });
+            
+            const status = document.getElementById('gameStatus');
+            status.textContent = 'Tu turno: ❤️';
+            status.style.background = 'linear-gradient(135deg, #ffe0f0 0%, #ffd0e8 100%)';
+            status.style.color = '#ff1493';
+        }
+
+        function selectCoupon(couponType) {
+            const couponTexts = {
+                'cena': 'Una Cena Romántica a la luz de las velas',
+                'escapada': 'Una Escapada Romántica al lugar que elijas',
+                'peliculas': 'Una Noche de Películas a tu elección'
+            };
+            
+            document.getElementById('selectedCouponText').textContent = couponTexts[couponType];
+            goToScreen6();
+        }
+    </script>
+</body>
+</html>
